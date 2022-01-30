@@ -2,16 +2,14 @@ import PropTypes from "prop-types";
 import Button from "./Button";
 
 
-const Header = ({ title }) => {
-  const onClick = () => {
-    console.log("button clicked");
-  };
+const Header = ({ title, onAddClick }) => {
+  
 
   return (
     <div>
       <header className="header">
         <h1>{title}</h1>
-        <Button text="Add" color="green" onClick={onClick}></Button>
+        <Button text="Add" color="green" onClick={onAddClick}></Button>
       </header>
       
     </div>
@@ -29,6 +27,7 @@ Header.defaultProps = {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  onAddClick: PropTypes.func.isRequired
 };
 
 export default Header;
