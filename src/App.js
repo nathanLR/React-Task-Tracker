@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
@@ -7,26 +7,26 @@ let id = 3;
 
 function App() {
   const [showAddTask, setShowAddTask] = useState(false);
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "Doctors Appointment",
-      day: "Feb 5th at 2:30pm",
-      reminder: true,
-    },
-    {
-      id: 2,
-      text: "Meeting at School",
-      day: "Feb 6th at 1:30pm",
-      reminder: true,
-    },
-    {
-      id: 3,
-      text: "Food shopping",
-      day: "Feb 5th at 2:30pm",
-      reminder: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(
+    () => {
+      const getTasks = async () =>{
+        const tasksRetrieved = await fetchTasks();
+        setTasks(tasksRetrieved);
+      }
+      getTasks();
+    }, []
+  );
+  const fetchTasks = async () => {
+    const response = await fetch("http://localhost:5000/tasks");
+    const tasks = await response.json(); 
+    console.log(tasks)
+    return tasks;
+    
+  }
+
+
 
   const deleteTask = (taskID) => {
     console.log("deleted", taskID);
@@ -49,7 +49,7 @@ function App() {
   }
   return (
     <div className="App container">
-      <Header title="Task Tracker" onAddClick={toggleAddTask}></Header>
+      <Header title="Task Tracker" onAddClick={toggleAddTask} showAdd={showAddTask}></Header>
       {
         showAddTask ? <AddTask onAddTask={addTask}/> : <></>
       }
