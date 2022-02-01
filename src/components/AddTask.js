@@ -4,6 +4,7 @@ const AddTask = ({ onAddTask }) => {
   const [text, setText] = useState("");
   const [day, setDay] = useState("");
   const [reminder, setReminder] = useState(false);
+  const [hour, setHour] = useState("");
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -15,6 +16,7 @@ const AddTask = ({ onAddTask }) => {
       onAddTask({
         text,
         day,
+        hour,
         reminder,
       });
       clearState();
@@ -23,6 +25,7 @@ const AddTask = ({ onAddTask }) => {
   const clearState = () => {
     setText("");
     setDay("");
+    setHour("");
     setReminder(false);
   };
   return (
@@ -36,14 +39,27 @@ const AddTask = ({ onAddTask }) => {
           onChange={(event) => setText(event.target.value)}
         />
       </div>
-      <div className="form-control">
-        <label>Day & Time</label>
-        <input
-          type="text"
-          placeholder="Day & Time"
-          value={day}
-          onChange={(event) => setDay(event.target.value)}
-        />
+      <div className="form-control flex">
+        <div>
+          <label>Day</label>
+          <input
+            type="date"
+            value={day}
+            onChange={(event) => {
+              setDay(event.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <label>Day</label>
+          <input
+            type="time"
+            value={hour}
+            onChange={(event) => {
+              setHour(event.target.value);
+            }}
+          />
+        </div>
       </div>
       <div className="form-control form-control-check">
         <label>Set reminder</label>
@@ -65,8 +81,7 @@ const AddTask = ({ onAddTask }) => {
 };
 
 AddTask.propTypes = {
-    onAddTask: PropTypes.func.isRequired
-}
-
+  onAddTask: PropTypes.func.isRequired,
+};
 
 export default AddTask;

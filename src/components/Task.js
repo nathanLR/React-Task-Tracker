@@ -2,7 +2,10 @@
 import { FaTimes } from "react-icons/fa";
 const Task = ({ task, onDelete, onRemind }) => {
   return (
-    <div className={task.reminder ? "task reminder" : "task"} onDoubleClick={() => onRemind(task.id)}>
+    <div
+      className={task.reminder ? "task reminder" : "task"}
+      onDoubleClick={() => onRemind(task.id)}
+    >
       <h3>
         {task.text}{" "}
         <FaTimes
@@ -10,7 +13,18 @@ const Task = ({ task, onDelete, onRemind }) => {
           onClick={() => onDelete(task.id)}
         />
       </h3>
-      <p>{task.day}</p>
+      <div className="taskInfos">
+        <p>
+        {new Date(task.day).toLocaleDateString("fr-FR", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
+      </p>
+      <p>{task.hour}</p>
+      </div>
+      
     </div>
   );
 };

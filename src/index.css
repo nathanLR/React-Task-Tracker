@@ -113,7 +113,14 @@ body {
   flex: 2;
   height: 20px;
 }
+.flex{
+  display: flex;
+  justify-content: space-between;
 
+}
+.flex > *{
+ flex: 0 0 45%;
+}
 footer {
   margin-top: 30px;
   text-align: center;
